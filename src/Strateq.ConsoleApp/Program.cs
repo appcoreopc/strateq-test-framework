@@ -1,6 +1,5 @@
 ﻿using System;
 using OpenQA.Selenium;
-//using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -19,12 +18,8 @@ namespace dotnet
 
             ChromeDriver driver = Login();
 
-            //_ = driver.Manage().Timeouts().ImplicitWait;
-            // WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-            wait.Until(ExpectedConditions.ElementIsVisible(By.LinkText("Purchase Order")));// instead of id u can use cssSelector or xpath of ur element.
-
+            wait.Until(ExpectedConditions.ElementIsVisible(By.LinkText("Purchase Order")));
 
             driver.FindElement(By.LinkText("Purchase Order")).Click();
 
@@ -33,33 +28,42 @@ namespace dotnet
 
             driver.FindElement(By.Id("purchaseordersomgr_vendor")).SendKeys("8P0001");
 
-            Thread.Sleep(2000);
-            
+            Thread.Sleep(3000);
+
             driver.FindElement(By.Id("purchaseordersomgr_vendor")).SendKeys(Keys.Tab);
 
+            Thread.Sleep(2000);
 
+            driver.FindElementById("purchaseordersomgr_remarks2").SendKeys("testtesttest");
 
+            var el = driver.FindElementById("purchaseordersomgr_very_urgent");
 
-           //  driver.FindElement(By.Id("purchaseordersomgr_vendor")).SendKeys(Keys.Tab);
+            Scroll_Page(driver, el);
 
-             Thread.Sleep(2000);
-            
-            //var t = driver.FindElement(By.XPath("//*[@id='purchaseordersomgr_vendor_popup']/li[3]"));
+            Actions action = new Actions(driver);
+            action.MoveToElement(el).Click().Perform();
 
-            //Actions action = new Actions(driver);
-            //action.Click(t).Click();
+            var el2 = driver.FindElement(By.Id("purchaseorderssomgr_addrow_btn"));
 
-            //driver.FindElement(By.XPath("/html/body/ul/li[1]")).Click();
+            Scroll_Page(driver, el2);
 
-//            driver.FindElement(By.Id("purchaseordersomgr_vendor")).SendKeys(Keys.Enter);
+            action = new Actions(driver);
+            action.MoveToElement(el2).Click().Perform();
 
-//            driver.FindElement(By.Id("purchaseorderssomgr_addrow_btn")).Click();
+        }
 
+        public static void Scroll_Page(IJavaScriptExecutor driver, IWebElement webelement)
+        {
+            webelement.SendKeys(Keys.Down);
 
-            //IWebElement firstResult = wait.Until(ExpectedConditions.ElementExists(By.CssSelector("h3>div")));
-            //Console.WriteLine(firstResult.GetAttribute("textContent"));
+            //driver.ExecuteScript("arguments[0].scrollIntoView(true);", webelement);
+            Thread.Sleep(500);
+        }
 
-            driver.Close();
+        public static void Scroll_Page2(IJavaScriptExecutor driver, IWebElement webelement)
+        {
+            driver.ExecuteScript("arguments[0].scrollIntoView(true);", webelement);
+            Thread.Sleep(500);
         }
 
         private static ChromeDriver Login()
@@ -79,7 +83,6 @@ namespace dotnet
             Thread.Sleep(5000);
 
             SelectValue(driver, "location_role_id", "13");
-
 
             driver.FindElement(By.Id("submitForm")).Click();
 
