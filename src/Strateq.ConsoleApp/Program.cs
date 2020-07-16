@@ -6,6 +6,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System.Threading;
 using OpenQA.Selenium.Chromium;
+using OpenQA.Selenium.Interactions;
 
 namespace dotnet
 {
@@ -19,7 +20,6 @@ namespace dotnet
             ChromeDriver driver = Login();
 
             //_ = driver.Manage().Timeouts().ImplicitWait;
-
             // WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
@@ -28,11 +28,32 @@ namespace dotnet
 
             driver.FindElement(By.LinkText("Purchase Order")).Click();
 
-            driver.FindElement(By.Id("purchaseordersomgr_vendor")).SendKeys("8P0004");
+            //var alert = driver.SwitchTo().Alert();
+            //alert.Accept();
 
-            driver.FindElement(By.Id("purchaseordersomgr_vendor")).SendKeys(Keys.Enter);
+            driver.FindElement(By.Id("purchaseordersomgr_vendor")).SendKeys("8P0001");
 
-            driver.FindElement(By.Id("purchaseorderssomgr_addrow_btn")).Click();
+            Thread.Sleep(2000);
+            
+            driver.FindElement(By.Id("purchaseordersomgr_vendor")).SendKeys(Keys.Tab);
+
+
+
+
+           //  driver.FindElement(By.Id("purchaseordersomgr_vendor")).SendKeys(Keys.Tab);
+
+             Thread.Sleep(2000);
+            
+            //var t = driver.FindElement(By.XPath("//*[@id='purchaseordersomgr_vendor_popup']/li[3]"));
+
+            //Actions action = new Actions(driver);
+            //action.Click(t).Click();
+
+            //driver.FindElement(By.XPath("/html/body/ul/li[1]")).Click();
+
+//            driver.FindElement(By.Id("purchaseordersomgr_vendor")).SendKeys(Keys.Enter);
+
+//            driver.FindElement(By.Id("purchaseorderssomgr_addrow_btn")).Click();
 
 
             //IWebElement firstResult = wait.Until(ExpectedConditions.ElementExists(By.CssSelector("h3>div")));
