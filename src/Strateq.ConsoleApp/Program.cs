@@ -38,25 +38,23 @@ namespace dotnet
 
             var el = driver.FindElementById("purchaseordersomgr_very_urgent");
 
-            Scroll_Page(driver, el);
+            Scroll_Page(el);
 
             Actions action = new Actions(driver);
             action.MoveToElement(el).Click().Perform();
 
             var el2 = driver.FindElement(By.Id("purchaseorderssomgr_addrow_btn"));
 
-            Scroll_Page(driver, el2);
+            Scroll_Page(el2);
 
             action = new Actions(driver);
             action.MoveToElement(el2).Click().Perform();
 
         }
 
-        public static void Scroll_Page(IJavaScriptExecutor driver, IWebElement webelement)
+        public static void Scroll_Page(IWebElement webelement)
         {
             webelement.SendKeys(Keys.Down);
-
-            //driver.ExecuteScript("arguments[0].scrollIntoView(true);", webelement);
             Thread.Sleep(500);
         }
 
