@@ -43,12 +43,29 @@ namespace dotnet
             Actions action = new Actions(driver);
             action.MoveToElement(el).Click().Perform();
 
+            Thread.Sleep(2000);
+
             var el2 = driver.FindElement(By.Id("purchaseorderssomgr_addrow_btn"));
 
             Scroll_Page(el2);
 
+            Thread.Sleep(2000);
+
             action = new Actions(driver);
             action.MoveToElement(el2).Click().Perform();
+
+            Thread.Sleep(2000);
+
+            var itemRow1 = driver.FindElement(By.CssSelector("#row0purchaseorders_jqxgrid > div:nth-child(1)"));
+
+            // wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("input.jqx-combobox-input jqx-widget-content jqx-rc-all[type='input")));
+
+            ((IJavaScriptExecutor) driver).ExecuteScript("window.scrollBy(0,300)");
+
+            action = new Actions(driver);
+            action.MoveToElement(itemRow1).Click().Perform();
+
+
 
         }
 
