@@ -65,6 +65,21 @@ namespace dotnet
             action = new Actions(driver);
             action.MoveToElement(itemRow1).Click().Perform();
 
+            Thread.Sleep(2000);
+
+             //driver.FindElement(By.Id("dropdownlistArrowcomboboxeditorpurchaseorders_jqxgridpurchaseorderssomgr_item_code")).SendKeys("PHAREGTAB010");
+
+               var combo = driver.FindElement(By.Id("dropdownlistArrowcomboboxeditorpurchaseorders_jqxgridpurchaseorderssomgr_item_code"));
+
+                Console.WriteLine(combo.Text);  
+
+                 action = new Actions(driver);
+            action.MoveToElement(itemRow1).SendKeys("PHAREGTAB010").Perform();
+
+            // dropdownlistArrowcomboboxeditorpurchaseorders_jqxgridpurchaseorderssomgr_item_code
+
+
+
 
 
         }
